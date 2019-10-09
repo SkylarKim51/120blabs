@@ -16,10 +16,24 @@ int main(void) {
     /* Insert DDR and PORT initializations */
 	DDRA = 0x00;	PORTA = 0xFF;
 	DDRB = 0x00;	PORTB = 0xFF;
-	
-    /* Insert your solution below */
+	DDRC = 0xFF;	PORTC = 0x00;
+	unsigned char tmpA = 0x00;
+	unsigned char tmpB = 0x00;
+	unsigned char tmpC = 0x00;
     while (1) {
-	
+	tmpA = PINA;
+	tmpB = PINB;
+	for(unsigned char i = 0; i <= 7; ++i){
+		if(tmpA && 0x01){
+			tmpC = tmpC + 1;
+		}
+		if(tmpB && 0x01){
+			tmpC = tmpC + 1;
+		}
+		tmpA = tmpA >> 1;
+		tmpB = tmpB >> 1;
+	}
+	PORTC = tmpC;		
     }
     return 1;
 }
