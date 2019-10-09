@@ -13,28 +13,32 @@
 #endif
 
 int main(void) {
-    /* Insert DDR and PORT initializations */
 	DDRA = 0x00;	PORTA = 0xFF;
 	DDRB = 0x00;	PORTB = 0xFF;
 	DDRC = 0xFF;	PORTC = 0x00;
 	unsigned char tmpA = 0x00;
 	unsigned char tmpB = 0x00;
 	unsigned char tmpC = 0x00;
+	unsigned char readA = 0x00;
+	unsigned char readB = 0x00;
 	unsigned char i = 0;
     while (1) {
-	tmpA = PINA;
-	tmpB = PINB;
+	readA = PINA;
+	readB = PINB;
+	tmpA = readA;
+	tmpB = readB;
 	for(i = 0; i <= 7; ++i){
-		if(tmpA && 0x01){
-			tmpC = tmpC + 1;
+		tmpA = readA >> i;
+		tmpB = readB >> i;
+		if((tmpA & 0x01) == 0x01){
+			tmpC = tmpC +1;
 		}
-		if(tmpB && 0x01){
-			tmpC = tmpC + 1;
+		if((tmpB & 0x01) == 0x01){
+			tmpC = tmpC +1;
 		}
-		tmpA = tmpA >> 1;
-		tmpB = tmpB >> 1;
 	}
-	PORTC = tmpC;		
+	PORTC = tmpC;
+	tmpA = tmpB = tmpC = readA = readB= 0x00;			
     }
     return 1;
 }
