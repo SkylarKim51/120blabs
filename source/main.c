@@ -20,10 +20,11 @@ int main(void) {
 	unsigned char tmpA = 0x00;
 	unsigned char tmpB = 0x00;
 	unsigned char tmpC = 0x00;
+	unsigned char i = 0;
     while (1) {
 	tmpA = PINA;
 	tmpB = PINB;
-	for(unsigned char i = 0; i <= 7; ++i){
+	for(i = 0; i <= 7; ++i){
 		if(tmpA && 0x01){
 			tmpC = tmpC + 1;
 		}
